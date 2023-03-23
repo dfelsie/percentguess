@@ -1,62 +1,66 @@
 import questionList from "@/Consts/questions";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type Props = {};
+const colors = ["text-red-500", "text-blue-500", "text-green-500"];
 
-export default function TypedHeading({}: Props) {
-  const colors = ["red", "green", "blue"];
+const TypedHeading = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [color, setColor] = useState(colors[phraseIndex % colors.length]);
 
-  const currentColor = colors[colorIndex % colors.length];
+  useEffect(() => {
+    const currentPhrase = questionList[phraseIndex];
+    const phraseText = currentPhrase.group;
+    //const { text: phraseText, color: phraseColor } = currentPhrase;
+    const interval = setInterval(() => {
+      const letter = phraseText[text.length];
+      if (letter === undefined) {
+        // Phrase is complete, move on to the next one
+        setTimeout(() => {
+          setPhraseIndex((prev) => (prev + 1) % questionList.length);
+          setText("");
+        }, 3000);
+        clearInterval(interval); // Stop the interval when the phrase is complete
+      } else {
+        // Add the next letter to the text
+        setText((prev) => prev + letter);
+      }
+    }, 150);
 
-  const currentPhrase =
-    "How many Americans " +
-    questionList[phraseIndex % questionList.length].group +
-    "?";
-  const questionPhrase = useEffect(() => {
-    const intervalId = setInterval(() => {
-      setPhraseIndex((phraseIndex) => (phraseIndex + 1) % questionList.length);
-      setColorIndex((colorIndex) => (colorIndex + 1) % colors.length);
+    return () => clearInterval(interval);
+  }, [phraseIndex, text]);
+
+  useEffect(() => {
+    //const currentPhrase = questionList[phraseIndex];
+    const phraseColor = colors[phraseIndex % colors.length];
+    //const { color: phraseColor } = currentPhrase;
+    setColor(phraseColor);
+    setText("");
+  }, [phraseIndex]);
+
+  const handleTransitionEnd = () => {
+    console.log("End");
+    // Add a delay before resetting the text
+    setTimeout(() => {
+      setText("");
     }, 3000);
-    return () => clearInterval(intervalId);
-  }, []);
-  const variants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
   };
+
   return (
-    <motion.h1
-      //className="text-[5rem] font-semibold "
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      transition={{ duration: 1, ease: "easeInOut" }}
-      className={`text-${currentColor} font-bold  text-[5rem]`}
-      //initial={{ y: -100, opacity: 0 }}
-      //animate={{ y: 0, opacity: 1 }}
-      //transition={{ delay: 0.5 }}
-    >
+    <div className="text-[4rem] text-gray-800 font-bold">
+      How many Americans{" "}
       <motion.span
-        className={`inline-block ${currentColor}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        className={`${color} font-bold`}
+        style={{ display: "inline-block" }}
+        onTransitionEnd={() => {}}
+        //animate={{ width: ["0", "100%"] }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
-        How many Americans
-        {questionList[phraseIndex].group.split(" ").map((char, index) => (
-          <motion.span
-            key={index}
-            className="inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.05 + 0.2 }}
-          >
-            {`${char + " "}  `}
-          </motion.span>
-        ))}
+        {text}
       </motion.span>
-    </motion.h1>
+      ?
+    </div>
   );
-}
+};
+export default TypedHeading;

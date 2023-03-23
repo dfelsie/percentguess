@@ -135,7 +135,7 @@ const questionList: Question[] = [
   },
 
   {
-    group: "have at least college degree",
+    group: "have at least a college degree",
     actualPercent: 33,
     userGuessPercent: null,
     guessedPercent: 47,
@@ -226,7 +226,7 @@ const questionList: Question[] = [
     guessedPercent: 50,
   },
   {
-    group: "have a household income over $25,00",
+    group: "have a household income over $25,000",
     actualPercent: 82,
     userGuessPercent: null,
     guessedPercent: 62,

@@ -19,12 +19,12 @@ export default function Results({ qList }: Props) {
         transition={{ duration: 0.5 }}
         exit={{ x: "-100%" }}
       >
-        <h1>Results</h1>
+        <h1 className="text-5xl font-bold mb-16">Results</h1>
         {qList.map(function (val, i) {
           return (
             <div key={`resBox${i}`}>
               <h2
-                className="mb-16"
+                className="text-2xl mb-20"
                 key={`header${i}`}
               >{`What percent of Americans ${val.group}?`}</h2>
               <Slider

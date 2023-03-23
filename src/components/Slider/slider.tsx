@@ -19,6 +19,9 @@ export default function Slider({
     setUserGuess(50);
   }, []);
   const showDots = question.userGuessPercent !== null || showResults;
+  const userGuessCloseToEstimated =
+    question.userGuessPercent !== null &&
+    Math.abs(question.userGuessPercent - question.guessedPercent) < 5;
 
   return (
     <div className="relative mt-4">
@@ -28,7 +31,7 @@ export default function Slider({
           className="absolute w-4 h-4 bg-red-500 rounded-full"
         >
           <div className="ml-3 absolute bottom-full left-1/2 transform -translate-x-1/2">
-            <span className="text-xs font-bold text-red-500 mt-[-2rem]">
+            <span className="text-md font-bold text-red-500 mt-[-2rem]">
               {`True percent: ${question.actualPercent}%`}
             </span>
           </div>
@@ -42,7 +45,7 @@ export default function Slider({
           className="absolute w-4 h-4 bg-blue-500 rounded-full"
         >
           <div className="absolute top-full left-1/2 transform -translate-x-1/2">
-            <span className="text-xs font-bold text-blue-500">
+            <span className="text-md font-bold text-blue-500">
               {`Estimated percent: ${question.guessedPercent}%`}
             </span>
           </div>
@@ -53,10 +56,14 @@ export default function Slider({
           style={{
             left: `calc(${question.userGuessPercent}% - 10px)`,
           }}
-          className="absolute w-4 h-4 bg-purple-500 rounded-full ml-[-4px]"
+          className="absolute w-4 h-4 bg-purple-500 rounded-full "
         >
-          <div className="absolute top-full mt-[75px] left-1/2 transform -translate-x-1/2">
-            <span className="text-xs font-bold text-purple-500">
+          <div
+            className={`absolute top-full left-1/2 transform -translate-x-1/2 ${
+              userGuessCloseToEstimated ? "mt-[75px]" : ""
+            }`}
+          >
+            <span className=" ml-[12px] block text-md font-bold text-purple-500">
               {`Your guess: ${question.userGuessPercent}%`}
             </span>
           </div>

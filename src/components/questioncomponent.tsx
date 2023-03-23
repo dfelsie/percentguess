@@ -32,7 +32,7 @@ export default function QuestionComponent({
         transition={{ duration: 0.5 }}
         exit={{ x: "-100%" }}
       >
-        <h2 className="text-center text-2xl">
+        <h2 className="text-center text-3xl mb-12">
           {`What percent of Americans `}
           <span className="underline"> {question.group}</span>?
         </h2>
@@ -41,7 +41,7 @@ export default function QuestionComponent({
           question={question}
           setUserGuess={setUserGuess}
         />
-        <div className="flex justify-items-center w-min mx-auto mt-36">
+        <div className="flex justify-items-center w-min mx-auto mt-36 text-xl">
           <h2>Your guess:</h2>
           <input
             type={"number"}
@@ -63,10 +63,11 @@ export default function QuestionComponent({
               setUserGuess(val);
             }}
             disabled={question.userGuessPercent !== null}
-            className=" bg-gray-200 mx-2"
+            className=" bg-blue-100 mx-2 w-24 "
           ></input>
         </div>
         <button
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded  mx-auto text-center my-4 w-fit"
           onClick={() => {
             setQList((prevQList: Question[]) => {
               const updatedQList = [...prevQList];
@@ -78,6 +79,7 @@ export default function QuestionComponent({
           Guess
         </button>
         <button
+          className="bg-green-700 hover:bg-green-900 text-white font-bold py-4 px-8 rounded  mx-auto text-center my-4 w-fit"
           onClick={() => {
             setQuestionNum((prevNum: number) => prevNum + 1);
           }}
@@ -85,6 +87,7 @@ export default function QuestionComponent({
           Next
         </button>
         <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded  mx-auto text-center my-4 w-fit"
           onClick={() => {
             setQuestionNum(qList.length);
           }}
