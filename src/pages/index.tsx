@@ -29,11 +29,8 @@ function shuffle(array: any[]) {
 export default function Home() {
   const [onHome, setonHome] = useState(true);
   const [questionNum, setQuestionNum] = useState(0);
-  const [qList, setqList] = useState(questionList);
+  const [qList, setqList] = useState(shuffle(questionList));
   const [onResults, setonResults] = useState(false);
-  useEffect(() => {
-    setqList(shuffle(qList));
-  }, []);
 
   if (questionNum >= qList.length || onResults) {
     return (
