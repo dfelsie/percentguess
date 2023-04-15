@@ -48,7 +48,7 @@ const TypedHeading = () => {
   };
 
   return (
-    <div className="text-[3rem] md:text-[4rem] md:text-center px-2 absolute text-gray-800 font-bold">
+    <div className="text-[3rem] md:text-[4rem] px-2 absolute text-gray-800 font-bold">
       How many Americans{" "}
       <motion.span
         className={`${color} font-bold`}

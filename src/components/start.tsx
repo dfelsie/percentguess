@@ -33,7 +33,7 @@ flex flex-col
       >
         Guess how many Americans are Muslim
       </motion.h1> */}
-      <div className="h-[500px] "></div>
+      <div className="h-[500px] sm:h-[450px] lg:h-[300px] "></div>
       <motion.h2
         className="px-4"
         initial={{ y: -100, opacity: 0 }}
