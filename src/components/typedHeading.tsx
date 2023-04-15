@@ -48,11 +48,11 @@ const TypedHeading = () => {
   };
 
   return (
-    <div className="text-[4rem] text-gray-800 font-bold">
+    <div className="text-[3rem] md:text-[4rem] md:text-center px-2 absolute text-gray-800 font-bold">
       How many Americans{" "}
       <motion.span
         className={`${color} font-bold`}
-        style={{ display: "inline-block" }}
+        style={{ display: "inline-block", textAlign: "center" }}
         onTransitionEnd={() => {}}
         //animate={{ width: ["0", "100%"] }}
         transition={{ duration: 1, delay: 0.5 }}
